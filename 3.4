@@ -1,0 +1,34 @@
+#include<iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+
+int main()
+{
+	string line; // обява  переменных
+    char k;
+	int number;
+	ifstream myfile("cpp.txt"); //открываем
+		if (myfile.is_open())
+		{
+			while (getline(myfile, line)) //получаем строки
+			{
+				number = line.length(); //считываем написанное
+					for (int i = 0; i < number; i++)
+					{
+						k = line[i]; //ввод ф - ции
+							if (isdigit(k)) // сортировка цифр от букв(возвращает ток цифры)
+							{
+							cout << line[i];
+
+							}
+
+					}
+			}
+			myfile.close();
+		}
+
+		else cout << "Unable to open file";
+
+}
