@@ -1,45 +1,50 @@
 #include <iostream>
+
+//Сортировка ПРОСТЫМИ вставками
+ //простым ничего не бывает.. да грядет буря
+
 #include <ctime>
 #include <iomanip>
 using namespace std;
 
-void insertionSort(int*, int); // прототип функции сортировки вставками
+void insertionSort(int*, int); //йаааааа свободеееееееееен словно птица на ПРОСТЫХ ВСТАВКАХ я свобооодееееен
 
-int main(int argc, char* argv[])
+int main(int argc, char* argv[]) //дичь которую я задолбался описывать и лучше ручками вводить этот сраный массив чем вот этим заниматься 
 {
 	srand(time(NULL));
 	setlocale(LC_ALL, "rus");
 	cout << "Введите размер массива: ";
-	int size_array; // длинна массива
+	int size_array; // длинна массива кнч чо еще то
 	cin >> size_array;
 
-	int* sorted_array = new int[size_array]; // одномерный динамический массив
+	int* sorted_array = new int[size_array]; // зеся мы стряпаем одномерный динамический массив
 	for (int counter = 0; counter < size_array; counter++)
 	{
-		sorted_array[counter] = rand() % 100; // заполняем массив случайными числами
-		cout << setw(2) << sorted_array[counter] << "  "; // вывод массива на экран
+		sorted_array[counter] = rand() % 100; // заполняем массив рандом числами
+		cout << setw(2) << sorted_array[counter] << "  "; // выводим массив на экран, а ты чо думал шутки шутим?
 	}
 	cout << "n";
 
-	insertionSort(sorted_array, size_array); // вызов функции сортировки вставками
+	insertionSort(sorted_array, size_array); //вызываем ф-цию сортировки вставками
 
 	for (int counter = 0; counter < size_array; counter++)
 	{
-		cout << setw(2) << sorted_array[counter] << "  "; // печать отсортированного массива
+		cout << setw(2) << sorted_array[counter] << "  "; //печатаем етот массив но уже отсортированный
 	}
 	cout << "n";
-	delete[] sorted_array; // высвобождаем память
+	delete[] sorted_array; //освобождаем память(честно говоря дичь)
 	system("pause");
 	return 0;
 }
+//ОМАГАДБЛ ОНО ЗАКОНЧИЛОСЬ, Я КЛЯНУСЬ НЕ ПОВТОРЮ ЭТОй ОШИБКИ, ЛУЧШЕ РУЧОНКАМИ КРИВЫМИ ВБИТЬ ВЕСЬ МАССИВ
 
-void insertionSort(int* arrayPtr, int length) // сортировка вставками
+void insertionSort(int* arrayPtr, int length) //сама сортировка простыми вставками
 {
-	int temp, // временная переменная для хранения значения элемента сортируемого массива
-		item; // индекс предыдущего элемента
+	int temp, //ето временная переменная для хранения значения элемента сортируемого массива
+		item; //тута будет индекс предыдущего элемента
 	for (int counter = 1; counter < length; counter++)
 	{
-		temp = arrayPtr[counter]; // инициализируем временную переменную текущим значением элемента массива
+		temp = arrayPtr[counter]; // присваиваем временную переменную текущим значением элемента массива
 		item = counter - 1; // запоминаем индекс предыдущего элемента массива
 		while (item >= 0 && arrayPtr[item] > temp) // пока индекс не равен 0 и предыдущий элемент массива больше текущего
 		{
