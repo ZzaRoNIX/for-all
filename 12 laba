@@ -1,0 +1,132 @@
+// ВАР 21. Создать квадратную матрицу размера 4 на 4.Матрица может запол-няться как числами, вводимыми с клавиатуры,
+//так и случайными числами (на выбор пользователя) из диапазона от 0 до 100. Требуется найти в этой матрице
+//все простые числа, сформировать из них отдельный массив и упорядочить его по убыванию.  Алгоритм  проверки  чисел
+//на  принадлежность  к  простым  должен быть универсальным, т.е. не должен зависеть от диапазона вводимых чисел. Ре-зультаты преобразований вывести на экран.
+
+//если не делится 2,3,5,7 - простое число(грубо говоря)
+#include"pch.h"
+#include<iostream>
+#include<vector>
+#include <iomanip>
+#include <ctime>
+#include <windows.h>
+
+using namespace std;
+
+int InChek(int LeftPred, int RightPred)
+{
+	int M;
+	while ((!(cin >> M) || (cin.peek() != '\n')) || (M < LeftPred || M>RightPred))// Проверка введеных значений
+	{
+		cin.clear();
+		while (cin.get() != '\n');
+		cout << "Введено некорректное значение, повторите ввод!!!" << endl;
+	}
+
+	return M;
+}
+
+int main()
+{
+	setlocale(LC_ALL, "Russian"); //русификатор консоли
+	int N = 4, i, j, s, count = 0;//размер квадратной матрицы 4х4 
+	int z = 99;
+	int min = 0, max = 100;       //диапазон вводимых чисел
+	int** mass = new int*[N];    //создаем массив указателей на элементы
+	cout << endl;
+	int a;
+	vector <int>simple; //вектор для массива с простыми числами
+
+		cout << "Выберите способ формирования матрицы " << endl;
+		cout << "0 - рандомно, 1 - с клавиатуры " << endl;
+		z = InChek(0, 1);
+	
+	switch (z)
+		/*  ---РАНДОМНОЕ ЗАПОЛНЕНИЕ МАТРИЦЫ---  */
+	{
+	case 0:
+	{
+		srand(time(NULL)); //инициализация генератора случайных чисел
+
+		for (i = 0; i < N; i++) {
+			mass[i] = new int[N]; //создаем массив элементов
+		}
+		for (i = 0; i < N; i++) {
+			for (j = 0; j < N; j++) {
+				mass[i][j] = rand() % max + min; //рандомное заполнение массива
+			}
+		}
+		cout << endl << "Полученная матрица: " << endl;
+
+		for (i = 0; i < N; i++) {
+			for (j = 0; j < N; j++)
+				cout << setw(4) << mass[i][j]; //вывод матрицы с шагом в 4 символа
+			cout << endl;
+		}
+		break;
+	}
+	/*  ---ЗАПОЛНЕНИЕ МАТРИЦЫ С КЛАВИАТУРЫ---  */
+	case 1: {
+		cout << "Заполните матрицу " << N << 'х' << N << endl;
+		for (i = 0; i < N; i++) {
+
+			mass[i] = new int[N]; //создаем массив элементов
+		}
+		for (i = 0; i < N; i++) {
+			for (j = 0; j < N; j++) {
+				cout << "Введите число не превыщающее диапазона (0 <= x <= 100): " << endl;
+				mass[i][j]=InChek(0,100);
+			}
+		}
+		cout << "Полученная матрица: " << endl;
+		for (i = 0; i < N; i++) {
+			for (j = 0; j < N; j++)
+				cout << setw(4) << mass[i][j];
+			cout << endl;
+		}
+	}
+	}
+
+	for (i = 0; i < N; i++)
+	{
+		for (j = 0; j < N; j++)
+		{
+			if ((mass[i][j] % 2!=0) && (mass[i][j] % 3!=0) && (mass[i][j] % 5!=0) && (mass[i][j] % 7!=0))
+			{
+				simple.push_back(mass[i][j]);//pushback добав в конец массива новый элемент int   
+				count++; //считаем кол-во эл. массива
+			}
+
+			if ((mass[i][j] == 2) || (mass[i][j] == 3) || (mass[i][j] == 5) || (mass[i][j] == 7))
+			{
+				simple.push_back(mass[i][j]);//pushback добав в конец массива новый элемент int   
+				count++; //считаем кол-во эл. массива
+			}
+		}
+	}
+	int minx;
+
+	for (i = 0; i < count; i++) //сортировка по убыванию
+	{
+		minx = simple[i];
+		for (j = i; j < count; j++)
+		{
+			if (minx < simple[j])
+			{
+				minx = simple[j];
+			}
+		}
+		simple[i] = minx;
+	}
+	int oldval = 0;
+	cout << "Простые числа в ней:" << endl;
+	for (i = 0; i < count; i++)
+	{
+		if (oldval != simple[i])
+		{
+			cout << simple[i] << endl;
+			oldval = simple[i];
+		}
+	}
+	return 0;
+}
